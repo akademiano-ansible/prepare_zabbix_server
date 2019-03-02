@@ -1,4 +1,11 @@
 ---
+- name: set postgres server delegation for zabbix server
+  set_fact:
+    delegated_dbhost: "{{ delegated_dbhost | default(postgresql_delegated_host, true) }}"
+    cacheable: true
+  when: postgresql_network_address is defined
+
+
 - name: set postgres server facts for zabbix server
   set_fact:
     zabbix_server_dbhost: "{{ zabbix_server_dbhost | default(postgresql_network_address, true) }}"
